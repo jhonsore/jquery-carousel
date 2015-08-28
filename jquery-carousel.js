@@ -13,6 +13,7 @@
 		//----------------------------------------------------------------------
 		var defaults =
 		{
+			classItem						: ".item",//class dos itens
 			margin							: 0,//a margem entre os objetos
 			resizeItem						: null,//um objeto {} que checa se deve ou não redimensionar os itens - width (tamanho que o item terá em % [1 a 100])
 			responsive						: null,//um objeto {} que considera a responsividade ou não - minWidth( tamanho minimo da tela para que a responsividade comece a checar)
@@ -29,6 +30,7 @@
 		var container;//container classe
 		var wrapper_itens;//wrapper-itens classe
 		var statusSlideAnim;//status para animação do slider ao clicar nas setas - checa se pode ou não animar o slider pois ele já está ou não animando
+		var classItem;
 
 		//----------------------------------------------------------------------
 		//----------------------------------------------------------------------
@@ -63,19 +65,19 @@
 			wrapper_itens = $(".wrapper-itens",plugin_element);
 			setaEsq = $(".seta-esq",plugin_element);
 			setaDir = $(".seta-dir",plugin_element);
+			classItem = plugin_settings.classItem;
 
 			//checando o tamanho total de itens para ocultar ou não as setas
 			var _widthAllItens = 0;
 			var _margin;
-			$(".item",content).each(function(index, element) {
+			$(classItem,content).each(function(index, element) {
 				_widthAllItens += $(element).outerWidth(true);
 				_margin = _getSize($(element),"marginRight");
 			});
 
-
 			//-----------
 
-			if($(".item",content).length <= 1)
+			if($(classItem,content).length <= 1)
 			{
 				$(".wrapper-setas",plugin_element).hide();
 			}
@@ -147,7 +149,7 @@
 				{
 					var _margin = 0;
 
-					/*$(".item",content).each(function(index, element) {
+					/*$(classItem,content).each(function(index, element) {
 					 if(_getSize($(element),"marginRight")>0)
 					 {
 					 _margin = _getSize($(element),"marginRight");
@@ -162,7 +164,7 @@
 						var _wResized = (_wResizeItem * _w)/100;//o tamanho correto que o item deverá ter após o redimensionamento
 
 						//pegamos todos os itens e redimensionamos
-						$(".item",content).each(function(index, element) {
+						$(classItem,content).each(function(index, element) {
 							$(element).width(_wResized);
 						});
 					}
@@ -176,9 +178,9 @@
 					//removemos o attr /style/ adicionado na condição acima
 					container.removeAttr("style");
 					if(plugin_settings.resizeItem) {
-						if($(".item",content).attr('style'))
+						if($(classItem,content).attr('style'))
 						{
-							$(".item",content).each(function(index, element) {
+							$(classItem,content).each(function(index, element) {
 								$(element).removeAttr("style");
 							});
 						}
@@ -186,7 +188,7 @@
 					_resizeContent ();
 				}
 
-				$(".item",content).each(function(index, element) {
+				$(classItem,content).each(function(index, element) {
 					if(_getSize($(element),"marginRight")>0)
 					{
 						_margin = _getSize($(element),"marginRight");
@@ -207,7 +209,7 @@
 		//clona os itens do /content/ para termos um loop infinito
 		function _setInfinite ()
 		{
-			$(".item",content).each(function(index, element)
+			$(classItem,content).each(function(index, element)
 			{
 				var _item = $(element);
 				_cloneObject({from:_item, to:wrapper_itens});
@@ -234,7 +236,7 @@
 
 			var _margin;
 
-			$(".item",content).each(function(index, element)
+			$(classItem,content).each(function(index, element)
 			{
 				//incrementando o tamanho dos elementos para redimensionar o tamanho do /content/
 				_widthItem = $(element).outerWidth(true);
@@ -272,7 +274,7 @@
 			var _posAtual = _getSize(content,"marginLeft");//retorna a posição atual do /content/
 			var _maxPosMove = content.width() -  container.width();//o valor máximo para movimentar o /content/
 
-			var widthItem = $('.item',content).outerWidth(true);//tamanho do item
+			var widthItem = $(classItem,content).outerWidth(true);//tamanho do item
 
 			//se for seta direita
 			if( arg_ == "right" )
@@ -297,7 +299,6 @@
 			}
 			else//se for seta esquerda
 			{
-				console.log();
 				if(Math.abs(Math.round(_posAtual)) == 0 && plugin_settings.infinite)
 				{
 					_xMove = -(content.width()/2);
