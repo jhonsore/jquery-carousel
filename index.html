@@ -3,16 +3,35 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Plugin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0">
 	<style type="text/css" media="all">  @import url(css/reset.css);  @import url(css/generic.css);  </style> 
 <script type="text/javascript" src="jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="jquery-carousel.js"></script>
+<script type="text/javascript" src="carousel.js"></script>
 <script type="text/javascript">
 	jQuery(document).ready(
 	function()
 	{
 		//-----------------------------------------
-		$("#slider-carousel").carousel({activate: function(){}, timerAnimSlide:400, infinite:true, resizeItem:{width:100}, responsive:{minWidth:645}});
-		$("#slider-carousel-2").carousel({activate: function(){}, timerAnimSlide:400, infinite:true, resizeItem:{width:50}, responsive:{minWidth:645}});
+		$("#carousel").carousel
+		({
+			activate: function(){}, 
+			timerAnimSlide:400,
+			itensDisplay: 4,
+			spaceBetweenItens: 10,
+			itensMove:1,
+			responsive:true
+		});
+		
+		$("#carousel-2").carousel
+		({
+			activate: function(){}, 
+			timerAnimSlide:400,
+			itensDisplay: 4,
+			spaceBetweenItens: 10,
+			itensMove:1,
+			responsive:true
+		});	
+		
 		
 		//-----------------------------------------
 	});
@@ -29,70 +48,55 @@
 html[xmlns] .clearfix {display: block;}
 * html .clearfix {height: 1%;}
 
-.center{ width:645px; margin:0 auto;}
+.center{ width:600px; margin:0 auto; background-color:#eeeeee; padding:30px 0 200px 0;}
 .wrapper-center{ padding:0 10px;}
 
-.img-responsive{ height:auto; width:100%;}
-
-/*------css obrigatório------*/
-#slider-carousel{ position: relative; width: 100%; padding: 10px 0 0 0; margin-bottom: 5px;}
-#container-slider-carousel{  width: 625px; position: relative; overflow: hidden; height:auto;}
-#content-silder-carousel{ width: 5000px; position: relative; left: 0;}
-/*---------------------------*/
-
-#slider-carousel .wrapper-setas{ position: absolute; right: 0; z-index: 10; margin: 22px 15px 0 0;}
-#slider-carousel .wrapper-setas a{ float: left; margin-left: 5px;}
-.seta-pag-esq-md{ background:url(seta-esq.png) no-repeat 0 0; width: 32px; height: 32px; display:block;}
-.seta-pag-dir-md{ background:url(seta-dir.png) no-repeat 0 0; width: 32px; height: 32px; display:block;}
-
-#content-silder-carousel .item{ float: left; width: 625px; margin-right:10px;}
-#content-silder-carousel .item .title{ }
-#content-silder-carousel .item .title .wrapper-title{ padding-right: 20px; position: relative; height: 39px; background-color: #517c58;-webkit-border-top-left-radius: 5px; -moz-border-radius-topleft: 5px; border-top-left-radius: 5px;}
-#content-silder-carousel .item .title .wrapper-title > div{ padding: 10px 0 0 15px;}
-#content-silder-carousel .item .title .wrapper-title em{ position: absolute; right: -28px; top: -1px;}
-#content-silder-carousel .item .title .wrapper-title p{ font-family:Arial, Helvetica, sans-serif; color: #e7eaa9; font-size: 16px; line-height: 18px;}
-
-#content-silder-carousel .item .content-offer { border: 1px solid #ebebeb; width: 100%;
-    -webkit-border-radius: 5px;
-    -webkit-border-top-left-radius: 0;
-    -moz-border-radius: 5px;
-    -moz-border-radius-topleft: 0;
-    border-radius: 5px;
-    border-top-left-radius: 0;}
-#content-silder-carousel .item td{ vertical-align: middle;}
-#content-silder-carousel .item .content-offer .img{ width: 40%; border: 1px solid #ebebeb;}
-#content-silder-carousel .item .content-offer .img img{ display:block; max-width:100%;}
-#content-silder-carousel .item .content-offer table{ width: 100%;}
-#content-silder-carousel .item .content-offer table tr td{ border: 1px solid #ebebeb; border-bottom: none;}
-#content-silder-carousel .item .content-offer table .nome-produto{ border: none; padding: 28px 20px;}
-#content-silder-carousel .item .content-offer table .nome-produto strong{ font-size: 18px; color: #517c58; line-height: 22px;}
-#content-silder-carousel .item .content-offer table .nome-produto p{ color: #666666;}
-#content-silder-carousel .item .content-offer table .price{ border-left: none;}
-#content-silder-carousel .item .content-offer table .price > div{ padding: 8px 10px; text-align: center;}
-#content-silder-carousel .item .content-offer table .price span{ font-size: 40px; line-height: 42px; font-weight: bold; color: #517c58;}
-#content-silder-carousel .item .content-offer table .price label{ margin-top: 23px; font-size: 11px; line-height: 13px; font-weight: bold; color: #517c58;}
-#content-silder-carousel .item .content-offer table .price sup{ font-size: 23px; line-height: 28px; font-weight: bold; color: #517c58;}
-#content-silder-carousel .item .content-offer table .weight > div{ padding: 8px 10px; text-align: center; }
-#content-silder-carousel .item .content-offer table .weight span{font-size: 12px; color: #666666;}
-#content-silder-carousel .item .content-offer table .card > div{ padding: 8px 10px;}
-#content-silder-carousel .item .content-offer table .card p{ margin-top: 10px; text-align: center; display: inline-block; width: 65px; font-size: 11px; line-height: 10px; color: #517c58; float: left;}
-#content-silder-carousel .item .content-offer table .card p strong{ font-size: 14px;}
-#content-silder-carousel .item .content-offer table .card em{ float: left;}
-
-
-#slider-carousel-2{ position: relative; width: 100%; padding: 10px 0 0 0; margin-bottom: 5px;}
-#container-slider-carousel-2{  width: 620px; position: relative; overflow: hidden; height:auto;}
-#content-silder-carousel-2{ width: 5000px; position: relative; left: 0;}
-#content-silder-carousel-2 .item{ width:200px; float:left; background-color:#CCC; margin-right:10px;}
-
-#slider-carousel-2 .wrapper-setas{ margin:0 0 10px 0;}
-#slider-carousel-2 .wrapper-setas a{ float:right; margin-left:10px;}
-
-
-
-@media screen and (max-width: 645px) {
+@media screen and (max-width: 600px) {
 	.center{ width:100%;}
-	
+}
+
+/*---------*/
+.carousel{ width:100%;}
+.carousel__wrapper{}
+.carousel__container{}
+.carousel__content{ overflow:hidden; height:auto; width:100%; position:relative;}
+.carousel__slider{ position:absolute; cursor: move;}
+.carousel__item{ position:absolute;}
+carousel__item img{}
+.carousel__navigation{}
+.carousel__nav{}
+.carousel__nav--left{}
+.carousel__nav--right{}
+/*---------*/
+
+#carousel .carousel__nav{ float:right;}
+#carousel .carousel__nav--left{ display:inline-block;}
+#carousel .carousel__nav--right{ display:inline-block;}
+#carousel .carousel__wrapper{ margin-top:20px;}
+#carousel .arrow-right{margin-left:10px;}
+
+#carousel-2{ margin-top:50px; position:relative;}
+#carousel-2 .carousel__navigation{ position:absolute; z-index:10; width:100%; left:0; top:50%; margin-top:-5px;}
+#carousel-2 .carousel__nav--left{ position:absolute; left:0;}
+#carousel-2 .carousel__nav--right{ position:absolute; right:0;}
+#carousel-2 .carousel__container{ margin:0  20px;}
+
+
+
+.arrow-right {
+	width: 0; 
+	height: 0; 
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+	border-left: 10px solid #bbbbbb;
+}
+
+.arrow-left {
+	width: 0; 
+	height: 0; 
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent; 
+	border-right:10px solid #bbbbbb; 
 }
 
 hr{ border:none; height:1px; width:100%; display:block; margin:60px 0; background-color:#CCC;}
@@ -102,258 +106,59 @@ hr{ border:none; height:1px; width:100%; display:block; margin:60px 0; backgroun
 
 <body>
 	<div class="center">
-    	<div class="wrapper-center">
-        	<div id="slider-carousel">
-                <div class="wrapper-setas">
-                    <a href="#" class="seta-esq setaEsq"><em class="sprite seta-pag-esq-md"></em></a>
-                    <a href="#" class="seta-dir setaDir"><em class="sprite seta-pag-dir-md"></em></a>
+        <div class="wrapper-center">
+            <div class="carousel" id="carousel">
+                <div class="carousel__navigation">
+                    <div class="carousel__navigation">
+                        <a class="carousel__nav carousel__nav--right" href="#"><div class="arrow-right"></div></a>
+                        <a class="carousel__nav carousel__nav--left" href="#"><div class="arrow-left"></div></a>
+                    </div>
                     <div class="clear"></div>
                 </div>
-                <div id="container-slider-carousel" class="container">
-                    <div id="content-silder-carousel" class="content">
-                        <div class="wrapper-itens">
-                            <div class="item">
-                                <div class="title">
-                                    <div class="wrapper-title">
-                                        <div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <table class="content-offer ">
-                                    <tr>
-                                        <td class="img">
-                                            <span><img src="img/lorempixel.jpg" alt="" class="img-responsive"/></span>
-                                        </td>
-                                        <td>
-                                            <div class="descricao-oferta">
-            
-                                                <table>
-                                                    <tr>
-                                                        <td colspan="3" class="nome-produto">
-                                                            <div>
-                                                                <strong>Aliquam pulvinar elit sit amet</strong>
-                                                                <p>Aenean varius nibh magna</p>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="col-4-10 price">
-                                                            <div>
-                                                                <label>R$</label>
-                                                                <span>12</span>
-                                                                <sup>,99</sup>
-                                                                <div class="clear"></div>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-2-10 weight">
-                                                            <div class="">
-                                                                <span>125g</span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-4-10 card">
-                                                            <div class="">
-                                                                <p><strong>10% </strong><span>de desconto</span></p>
-                                                                <em class="sprite icon-card-hortfruti-sm"></em>
-                                                                <div class="clear"></div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="item">
-                                <div class="title">
-                                    <div class="wrapper-title">
-                                        <div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur </p>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                                <table class="content-offer ">
-                                    <tr>
-                                        <td class="img">
-                                            <span><img src="img/lorempixel-1.jpg" alt="" class="img-responsive"/></span>
-                                        </td>
-                                        <td>
-                                            <div class="descricao-oferta">
-            
-                                                <table>
-                                                    <tr>
-                                                        <td colspan="3" class="nome-produto">
-                                                            <div>
-                                                                <strong>Aliquam pulvinar elit sit amet</strong>
-                                                                <p>Aenean varius nibh magna</p>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="col-4-10 price">
-                                                            <div>
-                                                                <label>R$</label>
-                                                                <span>12</span>
-                                                                <sup>,99</sup>
-                                                                <div class="clear"></div>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-2-10 weight">
-                                                            <div class="">
-                                                                <span>125g</span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-4-10 card">
-                                                            <div class="">
-                                                                <p><strong>10% </strong><span>de desconto</span></p>
-                                                                <em class="sprite icon-card-hortfruti-sm"></em>
-                                                                <div class="clear"></div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="item">
-                                <div class="title">
-                                    <div class="wrapper-title">
-                                        <div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur </p>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                                <table class="content-offer ">
-                                    <tr>
-                                        <td class="img">
-                                            <span><img src="img/lorempixel-2.jpg" alt="" class="img-responsive"/></span>
-                                        </td>
-                                        <td>
-                                            <div class="descricao-oferta">
-            
-                                                <table>
-                                                    <tr>
-                                                        <td colspan="3" class="nome-produto">
-                                                            <div>
-                                                                <strong>Aliquam pulvinar elit sit amet</strong>
-                                                                <p>Aenean varius nibh magna</p>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="col-4-10 price">
-                                                            <div>
-                                                                <label>R$</label>
-                                                                <span>12</span>
-                                                                <sup>,99</sup>
-                                                                <div class="clear"></div>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-2-10 weight">
-                                                            <div class="">
-                                                                <span>125g</span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-4-10 card">
-                                                            <div class="">
-                                                                <p><strong>10% </strong><span>de desconto</span></p>
-                                                                <em class="sprite icon-card-hortfruti-sm"></em>
-                                                                <div class="clear"></div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="item">
-                                <div class="title">
-                                    <div class="wrapper-title">
-                                        <div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur </p>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                                <table class="content-offer ">
-                                    <tr>
-                                        <td class="img">
-                                            <span><img src="img/lorempixel-3.jpg" alt="" class="img-responsive"/></span>
-                                        </td>
-                                        <td>
-                                            <div class="descricao-oferta">
-            
-                                                <table>
-                                                    <tr>
-                                                        <td colspan="3" class="nome-produto">
-                                                            <div>
-                                                                <strong>Aliquam pulvinar elit sit amet</strong>
-                                                                <p>Aenean varius nibh magna</p>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="col-4-10 price">
-                                                            <div>
-                                                                <label>R$</label>
-                                                                <span>12</span>
-                                                                <sup>,99</sup>
-                                                                <div class="clear"></div>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-2-10 weight">
-                                                            <div class="">
-                                                                <span>125g</span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-4-10 card">
-                                                            <div class="">
-                                                                <p><strong>10% </strong><span>de desconto</span></p>
-                                                                <em class="sprite icon-card-hortfruti-sm"></em>
-                                                                <div class="clear"></div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
+                <div class="carousel__wrapper">
+                    <div class="carousel__container">
+                        <div class="carousel__content">
+                            <div class="carousel__slider" id="carousel__slider">
+                                <a href="#" class="carousel__item"><img src="img/200x300-1.jpg" data-width="200" data-height="300"/></a>
+                                <a href="#" class="carousel__item"><img src="img/200x300-2.jpg" data-width="200" data-height="300" /></a>
+                                <a href="#" class="carousel__item"><img src="img/200x300-3.jpg" data-width="200" data-height="300" /></a>
+                                <a href="#" class="carousel__item"><img src="img/200x300-4.jpg" data-width="200" data-height="300" /></a>
+                                <a href="#" class="carousel__item"><img src="img/200x300-5.jpg" data-width="200" data-height="300" /></a>
+                                <a href="#" class="carousel__item"><img src="img/200x300-6.jpg" data-width="200" data-height="300" /></a>
                             </div>
                         </div>
-                        <div class="clear"></div>
                     </div>
                 </div>
-        	</div>
-        	<hr />
-            <div id="slider-carousel-2">
-                <div class="wrapper-setas">
-                	<a href="#" class="seta-dir setaDir"><em class="sprite seta-pag-dir-md"></em></a>
-                    <a href="#" class="seta-esq setaEsq"><em class="sprite seta-pag-esq-md"></em></a>
-                    
+            </div> 
+            
+            <!-- /////////////////////// -->
+            <div class="carousel" id="carousel-2">
+                <div class="carousel__navigation">
+                    <div class="carousel__navigation">
+                        <a class="carousel__nav carousel__nav--right" href="#"><div class="arrow-right"></div></a>
+                        <a class="carousel__nav carousel__nav--left" href="#"><div class="arrow-left"></div></a>
+                    </div>
                     <div class="clear"></div>
                 </div>
-                <div id="container-slider-carousel-2" class="container">
-                    <div id="content-silder-carousel-2" class="content">
-                        <div class="wrapper-itens">
-                            <div class="item"><span><img src="img/lorempixel.jpg" alt="" class="img-responsive"></span></div>
-                            <div class="item"><span><img src="img/lorempixel-1.jpg" alt="" class="img-responsive"></span></div>
-                            <div class="item"><span><img src="img/lorempixel-2.jpg" alt="" class="img-responsive"></span></div>
-                            <div class="item"><span><img src="img/lorempixel-3.jpg" alt="" class="img-responsive"></span></div>
+                <div class="carousel__wrapper">
+                    <div class="carousel__container">
+                        <div class="carousel__content">
+                            <div class="carousel__slider" id="carousel__slider">
+                                <a href="#" class="carousel__item"><img src="img/200x300-1.jpg" data-width="200" data-height="300"/></a>
+                                <a href="#" class="carousel__item"><img src="img/200x300-2.jpg" data-width="200" data-height="300" /></a>
+                                <a href="#" class="carousel__item"><img src="img/200x300-3.jpg" data-width="200" data-height="300" /></a>
+                                <a href="#" class="carousel__item"><img src="img/200x300-4.jpg" data-width="200" data-height="300" /></a>
+                                <a href="#" class="carousel__item"><img src="img/200x300-5.jpg" data-width="200" data-height="300" /></a>
+                                <a href="#" class="carousel__item"><img src="img/200x300-6.jpg" data-width="200" data-height="300" /></a>
+                            </div>
                         </div>
-                        <div class="clear"></div>
                     </div>
                 </div>
-        	</div>
-    		
-        </div>
+            </div> 
+            
+          
+            
+        </div>    	    		
     </div>
 </body>
 </html>
