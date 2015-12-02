@@ -16,7 +16,6 @@
 			itensDisplay					: 1,
 			responsive						: false,//um objeto {} que considera a responsividade ou não - minWidth( tamanho minimo da tela para que a responsividade comece a checar)
 			timerAnimSlide					: 300,//tempo para animação do slider ao clicar na seta
-			itensMove						: 1,//quantidade de itens a serem movidos ao clicar nas setas
 			activate						: function() {}//plugin ativado
 		};
 
@@ -32,7 +31,7 @@
 		var carousel__item;
 		var spaceBetweenItens;
 		var itensDisplay;
-		var itensMove;
+
 		var statusSlideAnim;
 		var widthItem;
 		
@@ -75,11 +74,10 @@
 			carousel__item = $('.carousel__item',carousel);
 			spaceBetweenItens = plugin_settings.spaceBetweenItens;
 			itensDisplay = plugin_settings.itensDisplay;
-			itensMove = plugin_settings.itensMove;
 			statusSlideAnim = false;
 			
-			carousel__nav__left.click(function(){	moveSlider("left");});
-			carousel__nav__right.click(function(){	moveSlider("right");});
+			carousel__nav__left.click(function(){	moveSlider("left"); return false;});
+			carousel__nav__right.click(function(){	moveSlider("right"); return false;});
 			
 			if(plugin_settings.responsive==true)
 			{
@@ -160,8 +158,9 @@
 				if( __arg__ == 'left' )
 				{
 					_xMove = (_posAtual + widthItem + spaceBetweenItens);
-					
-					if(_xMove <= 0)
+					_xMove = (_xMove > 0) ? 0 : _xMove;
+
+					if(_posAtual < 0)
 					{
 						statusSlideAnim = true;	
 						carousel__slider.stop(true,true).animate({marginLeft:_xMove},plugin_settings.timerAnimSlide,function(){
