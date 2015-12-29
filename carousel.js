@@ -1,3 +1,77 @@
+/*
+//plugin call
+ $("#carousel").carousel
+ ({
+        activate: function(){},
+        timerAnimSlide:400,
+        itensDisplay: 4,
+        breakPoint:[{width:800,itensDisplay:3},{width:580,itensDisplay:1},{width:700,itensDisplay:2}],
+        spaceBetweenItens: 10,
+        itensMove:1,
+        responsive:true
+    });
+
+    //plugin html structure
+	 <div class="carousel" id="carousel">
+		 <div class="carousel__navigation">
+			 <a class="carousel__nav carousel__nav--right" href="#"><div class="arrow-right"></div></a>
+			 <a class="carousel__nav carousel__nav--left" href="#"><div class="arrow-left"></div></a>
+		 </div>
+		 <div class="carousel__wrapper">
+			 <div class="carousel__container">
+				 <div class="carousel__content">
+					 <div class="carousel__slider" id="carousel__slider" >
+						 <a href="#" class="carousel__item">
+						 <img src="thumb.jpg" data-width="194" data-height="109">
+						 </a>
+						 <a href="#" class="carousel__item">
+						 <img src="thumb.jpg" data-width="194" data-height="109">
+						 </a>
+						 <a href="#" class="carousel__item" >
+						 <img src="thumb.jpg" data-width="194" data-height="109" >
+						 </a>
+					 </div>
+				 </div>
+			 </div>
+		 </div>
+	 </div>
+
+	 //css structure
+		.carousel{ width:100%;}
+		.carousel__wrapper{}
+		.carousel__container{}
+		.carousel__content{ overflow:hidden; height:auto; width:100%; position:relative;}
+		.carousel__slider{ position:absolute;}
+		.carousel__item{ position:absolute;}
+		carousel__item img{}
+		.carousel__navigation{}
+		.carousel__nav{}
+		.carousel__nav--left{}
+		.carousel__nav--right{}
+
+		#carousel .carousel__nav{ float:right;}
+		#carousel .carousel__nav--left{ display:inline-block;}
+		#carousel .carousel__nav--right{ display:inline-block;}
+		#carousel .carousel__wrapper{ margin-top:20px;}
+		#carousel .arrow-right{margin-left:10px;}
+
+		.arrow-right {
+			width: 0;
+			height: 0;
+			border-top: 10px solid transparent;
+			border-bottom: 10px solid transparent;
+			border-left: 10px solid #bbbbbb;
+		}
+
+		.arrow-left {
+			width: 0;
+			height: 0;
+			border-top: 10px solid transparent;
+			border-bottom: 10px solid transparent;
+			border-right:10px solid #bbbbbb;
+		}
+ */
+
 (function($){
 	//
 	$.fn.carousel = function( method )
@@ -12,6 +86,7 @@
 		//----------------------------------------------------------------------
 		var defaults =
 		{
+			breakPoint						: [],//array contendo os breakpoints para redimensionamento dos itens
 			centerThumbs					: false,
 			itensDisplay					: 1,
 			responsive						: false,//um objeto {} que considera a responsividade ou não - minWidth( tamanho minimo da tela para que a responsividade comece a checar)
@@ -90,23 +165,34 @@
 			{
 				if(carousel__slider.width() < carousel__content.width())
 				{
-					carousel__slider.css({marginLeft:(carousel__content.width()-_width_slider)/2});
+					carousel__slider.css({marginLeft:(carousel__content.width()-carousel__slider.width())/2});
 				}
 			}
 
+			_checkArrows ();
+			
+		}
+
+		function _checkArrows ()
+		{
 			if(carousel__item.size()==1)
 			{
 				$('.carousel__nav',carousel).hide();
 				carousel.addClass('single-item-carousel');
+				carousel.addClass('hide-arrows');
 			}
 
-			if(carousel__content.width() >= carousel__slider.width())
+			if(carousel__slider.width() > carousel__content.width() )
+			{
+				$('.carousel__nav',carousel).show();
+				carousel.removeClass('hide-arrows');
+			}
+			else
 			{
 				$('.carousel__nav',carousel).hide();
 				carousel.addClass('hide-arrows');
 			}
-				
-			
+
 		}
 		
 		function _setResponsive ()
@@ -119,13 +205,41 @@
 		{
 			_posImages ();
 		}
+
+		function closest (num, arr) {
+			var curr = arr[0];
+			var diff = Math.abs (num - curr.width);
+
+			for (var val = 0; val < arr.length; val++) {
+				var newdiff = Math.abs (num - arr[val].width);
+
+				if (newdiff < diff && arr[val].width>num) {
+					diff = newdiff;
+					curr = arr[val];
+				}
+			}
+			return curr;
+		}
 		
 		function _posImages ()
-		{			
+		{
+			//breakPoint
+			var _itensDisplay = itensDisplay;
+
+			if((plugin_settings.breakPoint.length>0) && plugin_settings.responsive==true)
+			{
+				//array contendo os breakpoints
+				var array = plugin_settings.breakPoint;//[{width:700,intesDisplay:2},{width:580,intesDisplay:1},{width:300,intesDisplay:1}];
+				var maxValue = $(window).width();
+				var closestNumber = closest (maxValue, array);
+
+				_itensDisplay = (maxValue >= closestNumber.width) ? itensDisplay : closestNumber.itensDisplay;
+
+			}
+
 			carousel__item.each(function(){
 				var _carousel__content_width = carousel__content.width();
-				
-				var _width_item = (_carousel__content_width - ((spaceBetweenItens * (itensDisplay-1)))) / itensDisplay;
+				var _width_item = (_carousel__content_width - ((spaceBetweenItens * (_itensDisplay-1)))) / _itensDisplay;
 				var _index = $(this).index();
 				var _pos = ((_width_item + spaceBetweenItens) * _index) ;
 				
@@ -155,6 +269,8 @@
 			carousel__slider.width(_width_slider);
 			
 			carousel__slider.css({marginLeft:0});
+
+			_checkArrows ();
 			
 		}
 		
