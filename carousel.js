@@ -170,7 +170,122 @@
 			}
 
 			_checkArrows ();
+			_initMobile();
 			
+		}
+
+		function _initMobile ()
+		{
+			
+
+			var startX,
+			    startY,
+			    tap,
+			    currentPos,
+			    posMove;
+			 
+			function getCoord(e, c) {
+			    return parseInt(/touch/.test(e.type) ? (e.originalEvent || e).changedTouches[0]['client' + c] : e['client' + c]);
+			}
+			 
+			carousel__slider.on('touchstart', function (ev) {
+			    startX = getCoord(ev, 'X');
+			    startY = getCoord(ev, 'Y');
+			    currentPos = getPos(carousel__slider,"marginLeft");
+			}).on('touchend', function (ev) {
+			    // If movement is less than 20px, execute the handler
+			    if (Math.abs(getCoord(ev, 'X') - startX) > 100) {
+			        
+					//statusdiv.innerHTML = closest();
+					var _p = closest();
+
+					//statusdiv.innerHTML = _p.pos+" / "+posMove+"<br>";
+
+					carousel__slider.stop(true,true).animate({marginLeft:-_p.pos},200,function(){
+						statusSlideAnim = false;
+					});
+					
+			        // Prevent emulated mouse events
+			        ev.preventDefault();
+			    }
+			    else
+			    {
+			    	carousel__slider.stop(true,true).animate({marginLeft:currentPos},200,function(){
+						statusSlideAnim = false;
+					});
+			    }
+			  
+			}).on('touchmove', function (ev) {
+
+				var _moveY = getCoord(ev, 'Y');
+				var _distY = _moveY - startY;
+				var _pos = getCoord(ev, 'X');
+				var dist = _pos - startX;
+
+				posMove = currentPos+dist;
+
+				if(posMove < 0)
+                {
+                	var _check = carousel__slider.width()-carousel__content.width();
+                	
+                   if(Math.abs(_check) <= Math.abs(posMove))
+                   {
+                   		posMove = -_check;
+                   }
+                }
+                else
+                {
+                    posMove = 0;
+                }
+
+                carousel__slider.css({marginLeft:posMove});
+
+			    //statusdiv.innerHTML = 'pos x: ' + Math.abs(dist) + '<br> pos y : '+Math.abs(_distY);
+			    //magic that makes page scroll with y scoll finger
+    			if(Math.abs(_distY) > Math.abs(dist))
+    			{
+    				//do nothing
+    			}
+    			else
+    			{
+    				return false;
+    			}
+			});
+
+			function closest(){
+				var closestTo = Math.abs(getPos(carousel__slider,"marginLeft"));
+				var arr = [];//arr with all slider itens
+				var _arrPos = [];//array with all positions
+				
+				$.each(carousel__item, function( index, value ) {
+				  var _obj = {item:$(this),pos:getPos($(this),"left")};
+				  arr.push(_obj);
+				  _arrPos.push(getPos($(this),"left"));
+				});
+
+				var closest = Math.max.apply(null, _arrPos); //Get the highest number in arr in case it match nothing.
+				var _item;
+
+				$.each(arr, function(k, v) {//loop in all itens to get te closest
+					var diff = (widthItem/2);
+					var _p = v.pos+diff;
+					
+				    if(_p >= closestTo && _p < closest)
+			        {
+			        	closest = v.pos; //Check if it's higher than your number, but lower than your closest value	
+			        	_item = v;
+			        } 
+				});
+
+				//if no closest we take the last item
+				if(!_item)
+				{
+					_item = arr[arr.length-1];
+				}
+				
+ 				return _item; // return the value
+			}
+        
 		}
 
 		function _checkArrows ()
