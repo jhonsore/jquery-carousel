@@ -176,7 +176,6 @@
 
 		function _initMobile ()
 		{
-			
 
 			var startX,
 			    startY,
@@ -187,7 +186,7 @@
 			function getCoord(e, c) {
 			    return parseInt(/touch/.test(e.type) ? (e.originalEvent || e).changedTouches[0]['client' + c] : e['client' + c]);
 			}
-			 
+
 			carousel__slider.on('touchstart', function (ev) {
 			    startX = getCoord(ev, 'X');
 			    startY = getCoord(ev, 'Y');
@@ -241,7 +240,7 @@
                 carousel__slider.css({marginLeft:posMove});
 
 			    //statusdiv.innerHTML = 'pos x: ' + Math.abs(dist) + '<br> pos y : '+Math.abs(_distY);
-			    //magic that makes page scroll with y scoll finger
+
     			if(Math.abs(_distY) > Math.abs(dist))
     			{
     				//do nothing
@@ -354,10 +353,10 @@
 
 			carousel__item.each(function(){
 				var _carousel__content_width = carousel__content.width();
-				var _width_item = (_carousel__content_width - ((spaceBetweenItens * (_itensDisplay-1)))) / _itensDisplay;
+				var _width_item = Math.ceil((_carousel__content_width - ((spaceBetweenItens * (_itensDisplay-1)))) / _itensDisplay);
 				var _index = $(this).index();
 				var _pos = ((_width_item + spaceBetweenItens) * _index) ;
-				
+
 				widthItem = _width_item;
 				
 				$(this).css({width:_width_item, left:_pos});
@@ -413,10 +412,11 @@
 				}
 				else
 				{
+
 					_xMove = -(widthItem - _posAtual + spaceBetweenItens);
-					
-					var _check = carousel__slider.width()-carousel__content.width();
-					
+
+					var _check = carousel__slider.width() - carousel__content.width();
+
 					if(Math.abs(_check) >= Math.abs(_xMove))
 					{
 						statusSlideAnim = true;	
