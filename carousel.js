@@ -351,6 +351,8 @@
 
 			}
 
+			var _timeOut;
+
 			carousel__item.each(function(){
 				var _carousel__content_width = carousel__content.width();
 				var _width_item = Math.ceil((_carousel__content_width - ((spaceBetweenItens * (_itensDisplay-1)))) / _itensDisplay);
@@ -372,10 +374,25 @@
 
 					$("img", $(this)).css({width:_wProp, height:_hProp});
 
-					var _hItem = $(this).height();
-					
-					carousel__content.height(_hItem);
-					carousel__slider.height(_hItem);
+					var _t = $(this);
+
+					if(!_timeOut){
+						_timeOut = setTimeout(function(){
+
+							var _arrHeight = [];
+							carousel__item.each(function(){
+								_arrHeight.push($(this).height());
+							});
+
+							var _max = Math.max.apply(null, _arrHeight);
+							var _hItem = Math.round(_max)+10;
+
+							carousel__content.height(_hItem);
+							carousel__slider.height(_hItem);
+
+						},300);
+					}
+
 				}
 						
 			});
