@@ -208,7 +208,7 @@
 			        ev.preventDefault();
 			    }
 			    else
-			    {
+			    {alert('b');
 			    	carousel__slider.stop(true,true).animate({marginLeft:currentPos},200,function(){
 						statusSlideAnim = false;
 					});
@@ -360,19 +360,22 @@
 				widthItem = _width_item;
 				
 				$(this).css({width:_width_item, left:_pos});
-				
+
+
 				if($("img", $(this)).size()>0)
 				{
 					var _w = $("img", $(this)).data('width');
 					var _h = $("img", $(this)).data('height');
 					var _scale = (_width_item*100) / _w;
 					var _wProp = (_w*_scale)/100;
-					var _hProp = (_h*_scale)/100;					
-					
+					var _hProp = (_h*_scale)/100;
+
 					$("img", $(this)).css({width:_wProp, height:_hProp});
+
+					var _hItem = $(this).height();
 					
-					carousel__content.height(_hProp);
-					carousel__slider.height(_hProp);
+					carousel__content.height(_hItem);
+					carousel__slider.height(_hItem);
 				}
 						
 			});
