@@ -171,6 +171,10 @@
 
 			_checkArrows ();
 			_initMobile();
+
+			$("img",carousel).one("load", function() {
+				_posImages();
+			});
 			
 		}
 
@@ -190,7 +194,7 @@
 			carousel__slider.on('touchstart', function (ev) {
 			    startX = getCoord(ev, 'X');
 			    startY = getCoord(ev, 'Y');
-			    currentPos = getPos(carousel__slider,"marginLeft");
+			    currentPos = _getSize(carousel__slider,"marginLeft");
 			}).on('touchend', function (ev) {
 			    // If movement is less than 20px, execute the handler
 			    if (Math.abs(getCoord(ev, 'X') - startX) > 100) {
@@ -208,7 +212,7 @@
 			        ev.preventDefault();
 			    }
 			    else
-			    {alert('b');
+			    {
 			    	carousel__slider.stop(true,true).animate({marginLeft:currentPos},200,function(){
 						statusSlideAnim = false;
 					});
@@ -226,7 +230,7 @@
 				if(posMove < 0)
                 {
                 	var _check = carousel__slider.width()-carousel__content.width();
-                	
+
                    if(Math.abs(_check) <= Math.abs(posMove))
                    {
                    		posMove = -_check;
@@ -252,14 +256,14 @@
 			});
 
 			function closest(){
-				var closestTo = Math.abs(getPos(carousel__slider,"marginLeft"));
+				var closestTo = Math.abs(_getSize(carousel__slider,"marginLeft"));
 				var arr = [];//arr with all slider itens
 				var _arrPos = [];//array with all positions
 				
 				$.each(carousel__item, function( index, value ) {
-				  var _obj = {item:$(this),pos:getPos($(this),"left")};
+				  var _obj = {item:$(this),pos:_getSize($(this),"left")};
 				  arr.push(_obj);
-				  _arrPos.push(getPos($(this),"left"));
+				  _arrPos.push(_getSize($(this),"left"));
 				});
 
 				var closest = Math.max.apply(null, _arrPos); //Get the highest number in arr in case it match nothing.
